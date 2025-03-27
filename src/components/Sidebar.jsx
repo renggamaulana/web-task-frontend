@@ -1,17 +1,24 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
-import { BiSolidCategory } from "react-icons/bi";
 import { HiCube } from 'react-icons/hi';
 import { IoDocument } from 'react-icons/io5';
 import { IoMdHome } from 'react-icons/io';
-import { FaLayerGroup, FaObjectUngroup } from 'react-icons/fa';
+import { HiMiniRectangleGroup } from 'react-icons/hi2';
 
 function Sidebar() {
+    const location = useLocation();
+
+    const isActive = (path) => {
+        if (path === "/") {
+          return location.pathname === "/" ? "bg-gray-900 font-semibold" : "";
+        }
+        return location.pathname.includes(path) ? "bg-gray-900 font-semibold" : "";
+      };
   return (
-    <div className="w-64 bg-white border-r p-4">
+    <div className="w-64 text-white bg-white/5 rounded-lg p-4 m-5">
       <div className="mb-8">
-        <Link to="/" className="text-2xl font-bold text-center">Product Sales</Link>
+        <Link to="/" className="text-2xl font-bold text-center">Penjualan Barang</Link>
       </div>
       
       <nav>
@@ -19,37 +26,37 @@ function Sidebar() {
           <li className="mb-2">
             <Link 
               to="/" 
-              className="flex items-center p-2 hover:bg-gray-100 rounded"
+              className={`flex items-center p-2 hover:bg-gray-800 hover:font-semibold transition duration-300 rounded-xl gap-3 ${isActive("/")}`}
             >
               <IoMdHome />
-              Dashboard
+              <span>Dashboard</span>
             </Link>
           </li>
           <li className="mb-2">
             <Link 
-              to="/categories" 
-              className="flex items-center p-2 hover:bg-gray-100 rounded"
+              to="/kategori" 
+              className={`flex items-center p-2 hover:bg-gray-800 hover:font-semibold transition duration-300 rounded-xl gap-3 ${isActive("/kategori")}`}
             >
-            <FaObjectUngroup />
-              Kategori
+            <HiMiniRectangleGroup />
+              <span>Kategori</span>
             </Link>
           </li>
           <li className="mb-2">
             <Link 
-              to="/products" 
-              className="flex items-center p-2 hover:bg-gray-100 rounded"
+              to="/barang" 
+              className={`flex items-center p-2 hover:bg-gray-800 hover:font-semibold transition duration-300 rounded-xl gap-3 ${isActive("/barang")}`}
             >
               <HiCube />
-              Produk
+              <span>Barang</span>
             </Link>
           </li>
           <li className="mb-2">
             <Link 
-              to="/transactions" 
-              className="flex items-center p-2 hover:bg-gray-100 rounded"
+              to="/transaksi" 
+              className={`flex items-center p-2 hover:bg-gray-800 hover:font-semibold transition duration-300 rounded-xl gap-3 ${isActive("/transaksi")}`}
             >
               <IoDocument />
-              Transaksi
+              <span>Transaksi</span>
             </Link>
           </li>
         </ul>

@@ -1,7 +1,10 @@
+import Breadcrumb from "../../components/Breadcrumb";
+
 export default function ProductCreate(){
     return (
         <>
-            <h1>Product Create</h1>
+            <Breadcrumb />
+            <h1>Tambah Barang</h1>
         </>
     )
 }

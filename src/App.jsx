@@ -1,6 +1,5 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Home from './pages/Home';
 import Category from './pages/Categories/Index';
 import Layout from './components/Layout';
 import CategoryCreate from './pages/Categories/Create';
@@ -19,16 +18,18 @@ function App() {
         {/* Main Page Dashboard Sales */}
         <Route index element={<Dashboard />} />
         {/* Category */}
-        <Route path="categories" element={<Category />} />
-        <Route path="categories/create" element={<CategoryCreate />} />
-        <Route path="categories/edit/:id" element={<CategoryEdit />} />
+        <Route path="kategori" element={<Category />} >
+          <Route path=":categoryId" element={<CategoryEdit />} />
+        </Route>
+        <Route path="kategori/tambah" element={<CategoryCreate />} />
         {/* Products */}
-        <Route path="products" element={<Product />} />
-        <Route path="products/create" element={<ProductCreate />} />
-        <Route path="products/edit:/" element={<ProductEdit />} />
+        <Route path="barang" element={<Product />} >
+          <Route path=":productId" element={<ProductEdit />} />
+        </Route>
+        <Route path="barang/tambah" element={<ProductCreate />} />
         {/* Products */}
-        <Route path="transactions" element={<Transaction />} />
-        <Route path="transactions/create" element={<TransactionCreate />} />
+        <Route path="transaksi" element={<Transaction />} />
+        <Route path="transaksi/tambah" element={<TransactionCreate />} />
       </Route>
   </Routes>
   );

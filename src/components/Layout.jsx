@@ -5,20 +5,22 @@ import Navbar from './Navbar';
 
 function Layout() {
   return (
-    <div className="flex h-screen">
-      {/* Sidebar */}
-      <Sidebar />
+    <div className="">
+        <div className="flex h-screen bg-[url('/dark-bg.jpg')] backdrop-blur-md bg-cover bg-center">
+        {/* Sidebar */}
+        <Sidebar />
 
-      {/* Main Content Area */}
-      <div className="flex flex-col flex-1">
-        {/* Navbar */}
-        <Navbar />
+        {/* Main Content Area */}
+        <div className="flex flex-col flex-1 relative">
+            {/* Navbar */}
+            {/* <Navbar /> */}
 
-        {/* Main Content */}
-        <main className="flex-1 overflow-y-auto p-4 bg-gray-100">
-          <Outlet />
-        </main>
-      </div>
+            {/* Main Content */}
+            <main className="flex-1 overflow-y-auto p-4">
+            <Outlet />
+            </main>
+        </div>
+        </div>
     </div>
   );
 }

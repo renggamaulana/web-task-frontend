@@ -1,8 +1,12 @@
-import { Link } from "react-router-dom"
+import { Link, Outlet } from "react-router-dom"
+import Breadcrumb from "../../components/Breadcrumb"
 export default function CategoryCreate() {
     return(
         <>
-            <h1>Add New Category</h1>
+            <Breadcrumb />
+            <div className="bg-blue-100">
+                <h1>Kategori</h1>
+            </div>
         </>
     )
 }
