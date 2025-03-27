@@ -3,22 +3,22 @@ import axios from 'axios';
 const API_URL = 'http://localhost:8000/api/sales/transactions';
 
 const transactionService = {
-  getAllCategories: async () => {
+  getAllTransactions: async () => {
     try {
       const response = await axios.get(API_URL);
       return response.data;
     } catch (error) {
-      console.error('Error fetching categories:', error);
+      console.error('Error fetching transactions:', error);
       throw error;
     }
   },
 
-  getCategoryById: async (id) => {
+  getTransactionById: async (id) => {
     try {
       const response = await axios.get(`${API_URL}/${id}`);
       return response.data;
     } catch (error) {
-      console.error(`Error fetching category ${id}:`, error);
+      console.error(`Error fetching transaction ${id}:`, error);
       throw error;
     }
   },
@@ -28,22 +28,22 @@ const transactionService = {
       const response = await axios.post(API_URL, categoryData);
       return response.data;
     } catch (error) {
-      console.error('Error creating category:', error);
+      console.error('Error creating transaction:', error);
       throw error;
     }
   },
 
-  updateCategory: async (id, categoryData) => {
+  updateTransaction: async (id, categoryData) => {
     try {
       const response = await axios.put(`${API_URL}/${id}`, categoryData);
       return response.data;
     } catch (error) {
-      console.error(`Error updating category ${id}:`, error);
+      console.error(`Error updating transaction ${id}:`, error);
       throw error;
     }
   },
 
-  deleteCategory: async (id) => {
+  deleteTransaction: async (id) => {
     try {
       const response = await axios.delete(`${API_URL}/${id}`);
       return response.data;

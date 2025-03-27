@@ -13,7 +13,7 @@ const Breadcrumb = () => {
     <nav className="text-gray-600 text-sm mb-4">
       <ul className="flex items-center space-x-2">
         <li>
-          <Link to="/" className="text-blue-500 hover:underline">
+          <Link to="/" className="text-gray-500 hover:underline">
             Home
           </Link>
         </li>
@@ -29,9 +29,9 @@ const Breadcrumb = () => {
             <li key={to} className="flex items-center">
               <span className="mx-2">/</span>
               {isLast ? (
-                <span className="text-gray-700">{displayValue}</span>
+                <span className="text-white">{displayValue}</span>
               ) : (
-                <Link to={to} className="text-blue-500 hover:underline">
+                <Link to={to} className="text-gray-500 hover:underline">
                   {displayValue}
                 </Link>
               )}
