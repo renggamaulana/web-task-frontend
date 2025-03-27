@@ -12,6 +12,7 @@ import {
   Tooltip,
   Legend,
 } from 'chart.js';
+import MainContainer from '../components/MainContainer';
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
@@ -84,16 +85,17 @@ function Dashboard() {
                 />
                 <button
                     onClick={fetchSales}
-                    className="p-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+                    className="p-2 bg-blue-500/20 hover:bg-blue-600/50 text-white rounded-lg cursor-pointer font-semibold"
                 >
                     Filter
                 </button>
             </div>
-
-            <div className="mt-8 bg-black/30 p-6 rounded-lg">
-                <h2 className="text-xl font-semibold mb-4">Grafik Penjualan Berdasarkan Jenis Barang</h2>
-                <Bar data={chartData} />
-            </div>
+            <MainContainer>
+                <div className="mt-8 bg-black/30 p-6 rounded-lg">
+                    <h2 className="text-xl font-semibold mb-4">Grafik Penjualan Berdasarkan Jenis Barang</h2>
+                    <Bar data={chartData} />
+                </div>
+            </MainContainer>
         </div>
     );
 }
