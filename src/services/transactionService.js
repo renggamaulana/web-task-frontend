@@ -3,9 +3,9 @@ import axios from 'axios';
 const API_URL = 'http://localhost:8000/api/sales/transactions';
 
 const transactionService = {
-  getAllTransactions: async () => {
+  getAllTransactions: async (params) => {
     try {
-      const response = await axios.get(API_URL);
+      const response = await axios.get(API_URL, {params});
       return response.data;
     } catch (error) {
       console.error('Error fetching transactions:', error);
