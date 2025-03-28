@@ -23,9 +23,9 @@ const transactionService = {
     }
   },
 
-  createCategory: async (categoryData) => {
+  createTransaction: async (transactionData) => {
     try {
-      const response = await axios.post(API_URL, categoryData);
+      const response = await axios.post(API_URL, transactionData);
       return response.data;
     } catch (error) {
       console.error('Error creating transaction:', error);

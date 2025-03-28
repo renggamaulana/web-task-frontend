@@ -22,7 +22,19 @@ export default function Product(){
         };
     
         fetchProducts();
-    }, []);
+    }, [products]);
+
+    const handleDelete = (product) => {
+        if (!confirm("Apakah Anda yakin ingin menghapus barang ini?")) {
+          return;
+        }
+        
+        try {
+            productService.deleteProduct(product.id);
+        } catch(error) {
+            console.error("Failed to delete product:", error);
+        }
+      }
 
     return (
         <div className="text-white">
@@ -30,7 +42,7 @@ export default function Product(){
         <MainContainer>
             <div className="flex justify-between w-full mb-5">
                 <Breadcrumb />
-                <Link to="/kategori/tambah" className="cursor-pointer font-semibold bg-sky-800/50 px-3 py-1 rounded-lg hover:bg-sky-600/50">
+                <Link to="/barang/tambah" className="cursor-pointer font-semibold bg-sky-800/50 px-3 py-1 rounded-lg hover:bg-sky-600/50">
                     Tambah
                 </Link>
             </div>
@@ -66,10 +78,10 @@ export default function Product(){
                                 <td className="p-3">{product.sold}</td>
                                 <td className="p-3">
                                     <div className="flex gap-2">
-                                        <button className="rounded px-3 py-1 bg-green-600/30 hover:bg-green-600/50 transition cursor-pointer text-white">
+                                        <Link to={`/barang/${product.id}`} className="rounded px-3 py-1 bg-green-600/30 hover:bg-green-600/50 transition cursor-pointer text-white">
                                             Edit
-                                        </button>
-                                        <button className="rounded px-3 py-1 bg-red-600/30 hover:bg-red-600/50 transition cursor-pointer text-white">
+                                        </Link>
+                                        <button onClick={() => handleDelete(product)} className="rounded px-3 py-1 bg-red-600/30 hover:bg-red-600/50 transition cursor-pointer text-white">
                                             Hapus
                                         </button>
                                     </div>

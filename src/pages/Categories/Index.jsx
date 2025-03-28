@@ -1,4 +1,4 @@
-import { Link, Outlet } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Breadcrumb from "../../components/Breadcrumb";
 import MainContainer from "../../components/MainContainer";
 import { useEffect, useState } from "react";
@@ -21,7 +21,19 @@ export default function Category() {
         };
     
         fetchCategories();
-      }, []);
+      }, [categories]);
+
+      const handleDelete = (category) => {
+        if (!confirm("Apakah Anda yakin ingin menghapus kategori ini?")) {
+          return;
+        }
+        
+        try {
+            categoryService.deleteCategory(category.id);
+        } catch(error) {
+            console.error("Failed to delete category:", error);
+        }
+      }
 
     return(
         <div className="text-white">
@@ -61,10 +73,10 @@ export default function Category() {
                                     <td className="p-3">{category.name}</td>
                                     <td className="p-3">
                                         <div className="flex gap-2">
-                                            <button className="rounded px-3 py-1 bg-green-600/30 hover:bg-green-600/50 transition cursor-pointer text-white">
+                                            <Link to={`/kategori/${category.id}`} className="rounded px-3 py-1 bg-green-600/30 hover:bg-green-600/50 transition cursor-pointer text-white">
                                                 Edit
-                                            </button>
-                                            <button className="rounded px-3 py-1 bg-red-600/30 hover:bg-red-600/50 transition cursor-pointer text-white">
+                                            </Link>
+                                            <button onClick={() => handleDelete(category)} className="rounded px-3 py-1 bg-red-600/30 hover:bg-red-600/50 transition cursor-pointer text-white">
                                                 Hapus
                                             </button>
                                         </div>

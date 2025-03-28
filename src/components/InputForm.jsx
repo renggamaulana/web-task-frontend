@@ -1,7 +1,14 @@
-export default function InputForm(props) {
+export default function InputForm({ id, type = "text", name, placeholder, className = "", ...props }) {
     return (
         <div className="w-full">
-            <input className="text-white bg-white/5 p-3 rounded-lg w-full" id={props.id} type={props.type} name={props.name} placeholder={props.placeholder} />
+            <input 
+                id={id}
+                type={type}
+                name={name}
+                placeholder={placeholder}
+                className={`text-white bg-white/5 p-3 rounded-lg w-full ${className}`}
+                {...props} // Menangani event seperti onChange, value, dll.
+            />
         </div>
-    )
+    );
 }

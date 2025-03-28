@@ -10,7 +10,7 @@ import useDebounce from "../../hooks/useDebounce";
 export default function Transaction() {
     const [transactions, setTransactions] = useState([]);
     const [search, setSearch] = useState("");
-    const [sort, setSort] = useState({ field: "transaction_date", order: "desc" });
+    const [sort, setSort] = useState({ field: "transaction_date", order: "asc" });
     const [loading, setLoading] = useState(false);
 
     const debouncedSearch = useDebounce(search, 500);
@@ -102,7 +102,7 @@ export default function Transaction() {
                                     <td className="p-3">{transaction.previous_stock}</td>
                                     <td className="p-3">{transaction.quantity}</td>
                                     <td className="p-3">{dayjs(transaction.transaction_date).format('DD-MM-YYYY')}</td>
-                                    <td className="p-3">{transaction.product?.category.name}</td>
+                                    <td className="p-3">{transaction.product?.category?.name}</td>
                                 </tr>
                                 ))
                             )}
