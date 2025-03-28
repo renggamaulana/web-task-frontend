@@ -30,7 +30,9 @@ export default function Product(){
         
         try {
             productService.deleteProduct(product.id);
-            fetchProducts();
+            setProducts(prevProducts => 
+                prevProducts.filter(item => item.id !== product.id)
+            );
         } catch(error) {
             console.error("Failed to delete product:", error);
         }

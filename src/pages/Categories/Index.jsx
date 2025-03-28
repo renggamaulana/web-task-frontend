@@ -27,10 +27,11 @@ export default function Category() {
         if (!confirm("Apakah Anda yakin ingin menghapus kategori ini?")) {
           return;
         }
-        
         try {
             categoryService.deleteCategory(category.id);
-            fetchCategories();
+            setCategories(prevCategories => 
+                prevCategories.filter(item => item.id !== category.id) // Hapus item dari state tanpa fetch ulang
+            );
         } catch(error) {
             console.error("Failed to delete category:", error);
         }
