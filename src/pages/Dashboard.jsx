@@ -35,6 +35,7 @@ function Dashboard() {
 
     const fetchSales = async () => {
         setLoading(true);
+        const API_URL = `${import.meta.env.VITE_API_URL || "http://localhost:8000/api/sales"}/summary`;
         try {
             const params = {};
             if (startDate && endDate) {
@@ -43,7 +44,7 @@ function Dashboard() {
                 params.start_date = formatDateToLocal(startDate);
                 params.end_date = formatDateToLocal(endDate);
             }
-            const response = await axios.get('http://localhost:8000/api/sales/summary', { params });
+            const response = await axios.get(API_URL, { params });
             setSalesData(response.data.data);
         } catch (error) {
             console.error('Error fetching sales data:', error);
