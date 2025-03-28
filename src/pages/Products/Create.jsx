@@ -96,13 +96,11 @@ export default function ProductCreate() {
                     <FormControl>
                         <LabelInput htmlFor="category_id" label="Jenis Barang" />
                         <select name="category_id" id="category_id" value={categoryId} onChange={(e) => setCategoryId(e.target.value)} className="text-white bg-white/5 p-3 rounded-lg w-full">
+                            <option selected value="">Pilih Jenis Barang</option>
                             {categories.map((category) => (
-                                <>
-                                    <option selected >Pilih Jenis Barang</option>
-                                    <option key={category.id} value={category.id}  className="text-black">
-                                        {category.name}
-                                    </option>
-                                </>
+                                <option key={category.id} value={category.id}  className="text-black">
+                                    {category.name}
+                                </option>
                             ))}
                         </select>
                     </FormControl>
