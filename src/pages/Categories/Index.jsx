@@ -8,20 +8,20 @@ export default function Category() {
     const [categories, setCategories] = useState([]);
     const [loading, setLoading] = useState(true)
 
-    useEffect(() => {
-        const fetchCategories = async () => {
-          try {
-            const data = await categoryService.getAllCategories();
-            setCategories(data.data);
-          } catch (error) {
-            console.error("Failed to fetch categories:", error);
-          } finally {
-            setLoading(false);
-          }
-        };
+    const fetchCategories = async () => {
+      try {
+        const data = await categoryService.getAllCategories();
+        setCategories(data.data);
+      } catch (error) {
+        console.error("Failed to fetch categories:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
     
+    useEffect(() => {
         fetchCategories();
-      }, [categories]);
+      }, []);
 
       const handleDelete = (category) => {
         if (!confirm("Apakah Anda yakin ingin menghapus kategori ini?")) {
@@ -30,6 +30,7 @@ export default function Category() {
         
         try {
             categoryService.deleteCategory(category.id);
+            fetchCategories();
         } catch(error) {
             console.error("Failed to delete category:", error);
         }

@@ -9,20 +9,19 @@ export default function Product(){
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true)
 
+    const fetchProducts = async () => {
+      try {
+        const data = await productService.getAllProducts();
+        setProducts(data.data);
+      } catch (error) {
+        console.error("Failed to fetch products:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
     useEffect(() => {
-        const fetchProducts = async () => {
-          try {
-            const data = await productService.getAllProducts();
-            setProducts(data.data);
-          } catch (error) {
-            console.error("Failed to fetch products:", error);
-          } finally {
-            setLoading(false);
-          }
-        };
-    
         fetchProducts();
-    }, [products]);
+    }, []);
 
     const handleDelete = (product) => {
         if (!confirm("Apakah Anda yakin ingin menghapus barang ini?")) {
@@ -31,6 +30,7 @@ export default function Product(){
         
         try {
             productService.deleteProduct(product.id);
+            fetchProducts();
         } catch(error) {
             console.error("Failed to delete product:", error);
         }
