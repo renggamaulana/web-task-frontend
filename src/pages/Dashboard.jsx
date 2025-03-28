@@ -25,15 +25,25 @@ function Dashboard() {
     useEffect(() => {
         fetchSales();
     }, []);
+
+    const formatDateToLocal = (date) => {
+        if (!date) return null;
+        return new Date(date.getTime() - date.getTimezoneOffset() * 60000)
+            .toISOString()
+            .split("T")[0];
+    };
+
     const fetchSales = async () => {
         setLoading(true);
         try {
             const params = {};
             if (startDate && endDate) {
-                params.start_date = startDate.toISOString().split('T')[0];
-                params.end_date = endDate.toISOString().split('T')[0];
+                console.log("Start Date:", formatDateToLocal(startDate));
+                console.log("End Date:", formatDateToLocal(endDate));
+                params.start_date = formatDateToLocal(startDate);
+                params.end_date = formatDateToLocal(endDate);
             }
-            const response = await axios.get('http://localhost:8000/api/sales/comparison', { params });
+            const response = await axios.get('http://localhost:8000/api/sales/summary', { params });
             setSalesData(response.data.data);
         } catch (error) {
             console.error('Error fetching sales data:', error);
@@ -64,33 +74,38 @@ function Dashboard() {
     return (
         <div className="text-white">
             <h1 className="text-3xl font-bold mb-6">Dashboard</h1>
-            <div className="mb-4 flex gap-4">
-                <DatePicker
-                    selected={startDate}
-                    onChange={date => setStartDate(date)}
-                    selectsStart
-                    startDate={startDate}
-                    endDate={endDate}
-                    placeholderText="Bulan/Tanggal/Tahun"
-                    className="p-2 bg-white text-black rounded"
-                />
-                <DatePicker
-                    selected={endDate}
-                    onChange={date => setEndDate(date)}
-                    selectsEnd
-                    startDate={startDate}
-                    endDate={endDate}
-                    placeholderText="Bulan/Tanggal/Tahun"
-                    className="p-2 bg-white text-black rounded"
-                />
-                <button
-                    onClick={fetchSales}
-                    className="p-2 bg-blue-500/20 hover:bg-blue-600/50 text-white rounded-lg cursor-pointer font-semibold"
-                >
-                    Filter
-                </button>
-            </div>
             <MainContainer>
+                <div className="mb-4 flex gap-4">
+                    <DatePicker
+                        selected={startDate}
+                        onChange={date => setStartDate(date)}
+                        selectsStart
+                        startDate={startDate}
+                        endDate={endDate}
+                        placeholderText="Bulan/Tanggal/Tahun"
+                        className="p-2 bg-white text-black rounded"
+                    />
+                    <DatePicker
+                        selected={endDate}
+                        onChange={date => setEndDate(date)}
+                        selectsEnd
+                        startDate={startDate}
+                        endDate={endDate}
+                        placeholderText="Bulan/Tanggal/Tahun"
+                        className="p-2 bg-white text-black rounded"
+                    />
+                    <button
+                        onClick={fetchSales}
+                        className="p-2 bg-blue-500/20 hover:bg-blue-600/50 text-white rounded-lg cursor-pointer font-semibold"
+                    >
+                        Filter
+                    </button>
+                </div>
+                {startDate && endDate && (
+                    <p className="text-gray-300 mb-4 text-sm">
+                        Periode: {startDate.toLocaleDateString('id-ID', { day: '2-digit', month: 'long', year: 'numeric' })} - {endDate.toLocaleDateString('id-ID', { day: '2-digit', month: 'long', year: 'numeric' })}
+                    </p>
+                )}
                 <div className="mt-8 bg-black/30 p-6 rounded-lg">
                     <h2 className="text-xl font-semibold mb-4">Grafik Penjualan Berdasarkan Jenis Barang</h2>
                     <Bar data={chartData} />

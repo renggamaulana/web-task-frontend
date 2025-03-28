@@ -3,6 +3,7 @@ import Breadcrumb from "../../components/Breadcrumb";
 import MainContainer from "../../components/MainContainer";
 import { useEffect, useState } from "react";
 import categoryService from "../../services/categoryService";
+import { BsFillInboxFill } from "react-icons/bs";
 export default function Category() {
     const [categories, setCategories] = useState([]);
     const [loading, setLoading] = useState(true)
@@ -47,7 +48,10 @@ export default function Category() {
                             {categories.length === 0 ? (
                                 <tr>
                                 <td colSpan="3" className="p-3 text-center text-gray-400 italic">
-                                    Tidak ada data kategori.
+                                    <div className="flex flex-col items-center gap-2">
+                                        <BsFillInboxFill className="text-8xl"/>
+                                        <span>Tidak ada data jenis barang.</span>
+                                    </div>
                                 </td>
                                 </tr>
                             ) : (
@@ -56,14 +60,14 @@ export default function Category() {
                                     <td className="p-3">{index + 1}</td>
                                     <td className="p-3">{category.name}</td>
                                     <td className="p-3">
-                                    <div className="flex gap-2">
-                                        <button className="rounded px-3 py-1 bg-green-600/30 hover:bg-green-600 transition text-white">
-                                        Edit
-                                        </button>
-                                        <button className="rounded px-3 py-1 bg-red-600/30 hover:bg-red-600 transition text-white">
-                                        Hapus
-                                        </button>
-                                    </div>
+                                        <div className="flex gap-2">
+                                            <button className="rounded px-3 py-1 bg-green-600/30 hover:bg-green-600/50 transition cursor-pointer text-white">
+                                                Edit
+                                            </button>
+                                            <button className="rounded px-3 py-1 bg-red-600/30 hover:bg-red-600/50 transition cursor-pointer text-white">
+                                                Hapus
+                                            </button>
+                                        </div>
                                     </td>
                                 </tr>
                                 ))

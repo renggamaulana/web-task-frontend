@@ -3,6 +3,8 @@ import Breadcrumb from "../../components/Breadcrumb";
 import MainContainer from "../../components/MainContainer";
 import { useEffect, useState } from "react";
 import transactionService from "../../services/transactionService";
+import { BsFillInboxFill } from "react-icons/bs";
+import dayjs from 'dayjs';
 
 export default function Transaction() {
     const [transactions, setTransactions] = useState([]);
@@ -30,7 +32,7 @@ export default function Transaction() {
             <div className="flex justify-between w-full mb-5">
                 <Breadcrumb />
                 <Link to="/transaksi/tambah" className="cursor-pointer font-semibold bg-sky-800/50 px-3 py-1 rounded-lg hover:bg-sky-600/50">
-                    Tambah
+                    Buat Transaksi
                 </Link>
             </div>
             {loading ? (
@@ -45,35 +47,27 @@ export default function Transaction() {
                         <th className="p-3">Jumlah Terjual</th>
                         <th className="p-3">Tanggal Transaksi</th>
                         <th className="p-3">Jenis Barang</th>
-                        <th className="p-3">Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
                         {transactions.length === 0 ? (
                             <tr>
-                            <td colSpan="3" className="p-3 text-center text-gray-400 italic">
-                                Tidak ada data barang.
+                            <td colSpan="6" className="p-3 text-center text-gray-400 italic">
+                                <div className="flex flex-col items-center gap-2">
+                                    <BsFillInboxFill className="text-8xl"/>
+                                    <span>Tidak ada data transaksi.</span>
+                                </div>
                             </td>
                             </tr>
                         ) : (
                             transactions.map((transaction, index) => (
                             <tr key={transaction.id} className="border-b border-white/20 hover:bg-white/20 transition">
                                 <td className="p-3">{index + 1}</td>
-                                <td className="p-3">{transaction.product?.name}</td>
-                                <td className="p-3">{transaction.product?.stock}</td>
-                                <td className="p-3">{transaction.product?.sold}</td>
-                                <td className="p-3">{transaction.transaction_date}</td>
-                                <td className="p-3">{transaction.product?.category?.name}</td>
-                                <td className="p-3">
-                                <div className="flex gap-2">
-                                    <button className="rounded px-3 py-1 bg-green-600/30 hover:bg-green-600 transition text-white">
-                                    Edit
-                                    </button>
-                                    <button className="rounded px-3 py-1 bg-red-600/30 hover:bg-red-600 transition text-white">
-                                    Hapus
-                                    </button>
-                                </div>
-                                </td>
+                                <td className="p-3">{transaction.product_name}</td>
+                                <td className="p-3">{transaction.previous_stock}</td>
+                                <td className="p-3">{transaction.quantity}</td>
+                                <td className="p-3">{dayjs(transaction.transaction_date).format('DD-MM-YYYY')}</td>
+                                <td className="p-3">{transaction.category_name}</td>
                             </tr>
                             ))
                         )}

@@ -3,6 +3,7 @@ import Breadcrumb from "../../components/Breadcrumb";
 import MainContainer from "../../components/MainContainer";
 import { useEffect, useState } from "react";
 import productService from "../../services/productService";
+import { BsFillInboxFill } from "react-icons/bs";
 
 export default function Product(){
     const [products, setProducts] = useState([]);
@@ -49,8 +50,11 @@ export default function Product(){
                     <tbody>
                         {products.length === 0 ? (
                             <tr>
-                            <td colSpan="3" className="p-3 text-center text-gray-400 italic">
-                                Tidak ada data barang.
+                            <td colSpan="5" className="p-3 text-center text-gray-400 italic">
+                                 <div className="flex flex-col items-center gap-2">
+                                    <BsFillInboxFill className="text-8xl"/>
+                                    <span>Tidak ada data barang.</span>
+                                </div>
                             </td>
                             </tr>
                         ) : (
@@ -61,14 +65,14 @@ export default function Product(){
                                 <td className="p-3">{product.stock}</td>
                                 <td className="p-3">{product.sold}</td>
                                 <td className="p-3">
-                                <div className="flex gap-2">
-                                    <button className="rounded px-3 py-1 bg-green-600/30 hover:bg-green-600 transition text-white">
-                                    Edit
-                                    </button>
-                                    <button className="rounded px-3 py-1 bg-red-600/30 hover:bg-red-600 transition text-white">
-                                    Hapus
-                                    </button>
-                                </div>
+                                    <div className="flex gap-2">
+                                        <button className="rounded px-3 py-1 bg-green-600/30 hover:bg-green-600/50 transition cursor-pointer text-white">
+                                            Edit
+                                        </button>
+                                        <button className="rounded px-3 py-1 bg-red-600/30 hover:bg-red-600/50 transition cursor-pointer text-white">
+                                            Hapus
+                                        </button>
+                                    </div>
                                 </td>
                             </tr>
                             ))
