@@ -128,7 +128,8 @@ export default function TransactionCreate() {
                             value={quantity}
                             onChange={(e) => setQuantity(e.target.value)}
                             required
-                            min="1"
+                            min="1" 
+                            placeholder="Masukkan jumlah barang"
                         />
                     </FormControl>
 

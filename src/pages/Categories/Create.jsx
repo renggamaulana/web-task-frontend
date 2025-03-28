@@ -73,7 +73,7 @@ export default function CategoryCreate() {
                             id="name"
                             value={name}
                             onChange={(e) => setName(e.target.value)}
-                            placeholder="Masukkan nama"   />
+                            placeholder="Masukkan nama jenis barang"   />
                     </FormControl>
                     <ButtonSubmit disabled={loading}>{loading ? "Menyimpan..." : "Submit"}</ButtonSubmit>
                 </form>

@@ -86,20 +86,23 @@ export default function ProductCreate() {
                 </div>
                 <form className="flex flex-col gap-5" onSubmit={handleSubmit}>
                     <FormControl>
-                        <LabelInput htmlFor="name" label="Nama" />
-                        <InputForm type="text" id="name" value={name} onChange={(e) => setName(e.target.value)} required />
+                        <LabelInput htmlFor="name" label="Nama Barangx" />
+                        <InputForm type="text" id="name" value={name} onChange={(e) => setName(e.target.value)} required placeholder="Masukkan nama barang"  />
                     </FormControl>
                     <FormControl>
                         <LabelInput htmlFor="stock" label="Stok" />
-                        <InputForm type="number" id="stock" value={stock} onChange={(e) => setStock(e.target.value)} required />
+                        <InputForm type="number" id="stock" value={stock} onChange={(e) => setStock(e.target.value)} required placeholder="Masukkan jumlah stok barang"  />
                     </FormControl>
                     <FormControl>
                         <LabelInput htmlFor="category_id" label="Jenis Barang" />
                         <select name="category_id" id="category_id" value={categoryId} onChange={(e) => setCategoryId(e.target.value)} className="text-white bg-white/5 p-3 rounded-lg w-full">
                             {categories.map((category) => (
-                                <option key={category.id} value={category.id}  className="text-black">
-                                    {category.name}
-                                </option>
+                                <>
+                                    <option selected >Pilih Jenis Barang</option>
+                                    <option key={category.id} value={category.id}  className="text-black">
+                                        {category.name}
+                                    </option>
+                                </>
                             ))}
                         </select>
                     </FormControl>

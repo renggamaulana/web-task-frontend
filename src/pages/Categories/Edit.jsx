@@ -83,7 +83,7 @@ export default function CategoryEdit() {
                 <form className="flex flex-col gap-5" onSubmit={handleSubmit}>
                     <FormControl>
                         <LabelInput htmlFor="name" label="Nama" />
-                        <InputForm type="text" id="name" value={name} onChange={(e) => setName(e.target.value)} required />
+                        <InputForm type="text" id="name" value={name} onChange={(e) => setName(e.target.value)} placeholder="Masukkan nama jenis barang"  required />
                     </FormControl>
                     <ButtonSubmit disabled={loading}>{loading ? "Menyimpan..." : "Update"}</ButtonSubmit>
                 </form>
