@@ -13,6 +13,7 @@ import {
   Legend,
 } from 'chart.js';
 import MainContainer from '../components/MainContainer';
+import { useNavigate } from 'react-router-dom';
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
@@ -21,6 +22,9 @@ function Dashboard() {
     const [loading, setLoading] = useState(true);
     const [startDate, setStartDate] = useState(null);
     const [endDate, setEndDate] = useState(null);
+    const [error, setError] = useState(false);
+
+    const navigate = useNavigate();
 
     useEffect(() => {
         fetchSales();
@@ -45,6 +49,11 @@ function Dashboard() {
                 params.end_date = formatDateToLocal(endDate);
             }
             const response = await axios.get(API_URL, { params });
+            if(response.data.error) {
+                setError(true);
+                alert(response.data.error_message);
+                navigate('/transaksi');
+            }
             setSalesData(response.data.data);
         } catch (error) {
             console.error('Error fetching sales data:', error);
@@ -107,10 +116,11 @@ function Dashboard() {
                         Periode: {startDate.toLocaleDateString('id-ID', { day: '2-digit', month: 'long', year: 'numeric' })} - {endDate.toLocaleDateString('id-ID', { day: '2-digit', month: 'long', year: 'numeric' })}
                     </p>
                 )}
-                <div className="mt-8 bg-black/30 p-6 rounded-lg">
-                    <h2 className="text-xl font-semibold mb-4">Grafik Penjualan Berdasarkan Jenis Barang</h2>
+                 {chartData?.datasets?.length > 0 ? (
                     <Bar data={chartData} />
-                </div>
+                ) : (
+                    <p className="text-gray-300 text-center">Data penjualan tidak tersedia</p>
+                )}
             </MainContainer>
         </div>
     );
