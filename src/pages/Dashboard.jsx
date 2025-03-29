@@ -14,6 +14,7 @@ import {
 } from 'chart.js';
 import MainContainer from '../components/MainContainer';
 import { useNavigate } from 'react-router-dom';
+import Swal from "sweetalert2";
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
@@ -51,7 +52,12 @@ function Dashboard() {
             const response = await axios.get(API_URL, { params });
             if(response.data.error) {
                 setError(true);
-                alert(response.data.error_message);
+                 Swal.fire({
+                    icon: "error",
+                    title: "Gagal!",
+                    text: response.data.error_message,
+                    timer: 2000,
+                });
                 navigate('/transaksi');
             }
             setSalesData(response.data.data);
