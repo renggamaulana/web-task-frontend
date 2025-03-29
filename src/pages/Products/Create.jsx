@@ -86,7 +86,7 @@ export default function ProductCreate() {
                 </div>
                 <form className="flex flex-col gap-5" onSubmit={handleSubmit}>
                     <FormControl>
-                        <LabelInput htmlFor="name" label="Nama Barangx" />
+                        <LabelInput htmlFor="name" label="Nama Barang" />
                         <InputForm type="text" id="name" value={name} onChange={(e) => setName(e.target.value)} required placeholder="Masukkan nama barang"  />
                     </FormControl>
                     <FormControl>

@@ -14,7 +14,7 @@ import {
 } from 'chart.js';
 import MainContainer from '../components/MainContainer';
 import { useNavigate } from 'react-router-dom';
-import Swal from "sweetalert2";
+// import Swal from "sweetalert2";
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
@@ -59,20 +59,11 @@ function Dashboard() {
         } catch (error) {
             setError(true);
             setSalesData({ categories: [] }); // Reset data jika terjadi error
-            Swal.fire({
-                icon: "error",
-                title: "Gagal!",
-                text: error.message || "Terjadi kesalahan saat mengambil data",
-                timer: 2000,
-            });
-            navigate('/transaksi');
             console.error('Error fetching sales data:', error);
         } finally {
             setLoading(false);
         }
     };
-
-    if (loading) return <p>Loading...</p>;
 
     const getRandomColor = () => `hsl(${Math.random() * 360}, 70%, 50%)`;
 
@@ -95,48 +86,51 @@ function Dashboard() {
         <div className="text-white">
             <h1 className="text-3xl font-bold mb-6">Dashboard</h1>
             <MainContainer>
-                
-                <div className="mt-8 bg-black/30 p-6 rounded-lg">
-                    <h2 className="text-xl font-semibold mb-4 text-center">Grafik Penjualan Berdasarkan Jenis Barang</h2>
-                    {chartData.labels.length > 0 ? (
-                        <>
-                            <div className="mb-4 flex gap-4">
-                                <DatePicker
-                                    selected={startDate}
-                                    onChange={date => setStartDate(date)}
-                                    selectsStart
-                                    startDate={startDate}
-                                    endDate={endDate}
-                                    placeholderText="Bulan/Tanggal/Tahun"
-                                    className="p-2 bg-white text-black rounded"
-                                />
-                                <DatePicker
-                                    selected={endDate}
-                                    onChange={date => setEndDate(date)}
-                                    selectsEnd
-                                    startDate={startDate}
-                                    endDate={endDate}
-                                    placeholderText="Bulan/Tanggal/Tahun"
-                                    className="p-2 bg-white text-black rounded"
-                                />
-                                <button
-                                    onClick={fetchSales}
-                                    className="p-2 bg-blue-500/20 hover:bg-blue-600/50 text-white rounded-lg cursor-pointer font-semibold"
-                                >
-                                    Filter
-                                </button>
-                            </div>
-                            {startDate && endDate && (
-                                <p className="text-gray-300 mb-4 text-sm">
-                                    Periode: {startDate.toLocaleDateString('id-ID', { day: '2-digit', month: 'long', year: 'numeric' })} - {endDate.toLocaleDateString('id-ID', { day: '2-digit', month: 'long', year: 'numeric' })}
-                                </p>
-                            )}
-                            <Bar data={chartData} />
-                        </>
-                    ) : (
-                        <p className="text-gray-300 text-center">Data penjualan tidak tersedia</p>
-                    )}
-                </div>
+                {loading ? (
+                    <p className='text-white'>Loading...</p>
+                ) : (
+                    <div className="mt-8 bg-black/30 p-6 rounded-lg">
+                        <h2 className="text-xl font-semibold mb-4 text-center">Grafik Penjualan Berdasarkan Jenis Barang</h2>
+                        {chartData.labels.length > 0 ? (
+                            <>
+                                <div className="mb-4 flex gap-4">
+                                    <DatePicker
+                                        selected={startDate}
+                                        onChange={date => setStartDate(date)}
+                                        selectsStart
+                                        startDate={startDate}
+                                        endDate={endDate}
+                                        placeholderText="Bulan/Tanggal/Tahun"
+                                        className="p-2 bg-white text-black rounded"
+                                    />
+                                    <DatePicker
+                                        selected={endDate}
+                                        onChange={date => setEndDate(date)}
+                                        selectsEnd
+                                        startDate={startDate}
+                                        endDate={endDate}
+                                        placeholderText="Bulan/Tanggal/Tahun"
+                                        className="p-2 bg-white text-black rounded"
+                                    />
+                                    <button
+                                        onClick={fetchSales}
+                                        className="p-2 bg-blue-500/20 hover:bg-blue-600/50 text-white rounded-lg cursor-pointer font-semibold"
+                                    >
+                                        Filter
+                                    </button>
+                                </div>
+                                {startDate && endDate && (
+                                    <p className="text-gray-300 mb-4 text-sm">
+                                        Periode: {startDate.toLocaleDateString('id-ID', { day: '2-digit', month: 'long', year: 'numeric' })} - {endDate.toLocaleDateString('id-ID', { day: '2-digit', month: 'long', year: 'numeric' })}
+                                    </p>
+                                )}
+                                <Bar data={chartData} />
+                            </>
+                        ) : (
+                            <p className="text-gray-300 text-center">Data penjualan tidak tersedia</p>
+                        )}
+                    </div>
+                )}
             </MainContainer>
         </div>
     );
